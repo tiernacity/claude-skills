@@ -1,6 +1,6 @@
 ---
 name: working-with-nuejs
-description: Use when working with Nue.js 2.x (HTML-first reactive framework) - covers getting started, component syntax, project structure, SPAs with client-side routing, REST APIs, blogs with collections/RSS, and React transition. Modular guides for blogs (@blog-guide.md), APIs (@server-api-guide.md), and SPAs (@spa-guide.md)
+description: Use when working with Nue.js 2.x (HTML-first reactive framework) - covers getting started, building sites with file-based routing/layouts/collections, adding interactivity with reactive components, and server-side APIs. Feature-based modular guides: @building-sites.md, @adding-interactivity.md, @server-side.md
 ---
 
 # Working with Nue.js
@@ -152,17 +152,20 @@ my-app/
 
 **Supported files:** `.html`, `.md`, `.css`, `.js`, `.ts`, `.svg`, `.yaml`
 
-## Creating Blogs & Content Sites
+## Building Sites (Content & Pages)
 
-**See @blog-guide.md for complete coverage of:**
-- Content collections and front matter
-- Post listing (`<page-list/>` and custom loops)
-- site.yaml configuration (meta, rss, collections)
+**See @building-sites.md for:**
+- File-based routing (directory structure = URLs)
+- Layouts (site-wide and section-specific)
+- Markdown content with front matter
+- Content collections (blogs, docs, portfolios)
+- site.yaml configuration
 - RSS feed generation
+- The `@shared/` directory
 
 **Quick example:**
 ```markdown
-# posts/my-post.md
+# blog/my-post.md
 ---
 title: My Post
 date: 2025-01-15
@@ -170,28 +173,30 @@ date: 2025-01-15
 Content here...
 ```
 
-```yaml
-# site.yaml
-collections:
-  posts:
-    include: [ posts/ ]
-    sort: date desc
-rss:
-  enabled: true
+## Adding Interactivity
+
+**See @adding-interactivity.md for:**
+- Reactive components (@click, { } bindings)
+- State management
+- Client-side routing (SPAs)
+- Data fetching and loading states
+- Forms and validation
+- React-to-Nue transition
+
+**Quick example:**
+```html
+<!doctype dhtml>
+<button @click="count++">{ count }</button>
+<script>count = 0</script>
 ```
 
-## Creating SPAs & APIs
+## Server-Side Features
 
-**See @spa-guide.md for client-side SPA patterns:**
-- Client-side routing (History API)
-- State management
-- Data fetching and loading states
-- Form handling
-
-**See @server-api-guide.md for backend APIs:**
-- REST endpoint patterns (`get()`, `post()`, `del()`)
+**See @server-side.md for:**
+- REST API endpoints (`get()`, `post()`, `del()`)
 - Context object (`c.json()`, `c.req.param()`)
 - Middleware and authentication
+- Nueserver patterns
 - **Note:** Server features are beta in 2.0.0-beta.2
 
 ## Common Commands
