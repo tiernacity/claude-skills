@@ -1,6 +1,6 @@
 ---
 name: working-with-nuejs
-description: Use when working with Nue.js 2.x (HTML-first reactive framework) - covers getting started, component syntax, single/multi-page apps, @shared/ directory, file-based routing, layouts, blogs with content collections, front matter, RSS feeds, site.yaml configuration, and React-to-Nue transition
+description: Use when working with Nue.js 2.x (HTML-first reactive framework) - covers getting started, component syntax, project structure, SPAs with client-side routing, REST APIs, blogs with collections/RSS, and React transition. Modular guides for blogs (@blog-guide.md), APIs (@server-api-guide.md), and SPAs (@spa-guide.md)
 ---
 
 # Working with Nue.js
@@ -154,101 +154,45 @@ my-app/
 
 ## Creating Blogs & Content Sites
 
-### Content Collections
+**See @blog-guide.md for complete coverage of:**
+- Content collections and front matter
+- Post listing (`<page-list/>` and custom loops)
+- site.yaml configuration (meta, rss, collections)
+- RSS feed generation
 
-Markdown files in a directory automatically form a collection:
-
-```
-blog/
-├── index.html           # Lists all posts
-├── first-post.md        # Becomes /blog/first-post
-└── second-post.md       # Becomes /blog/second-post
-```
-
-### Front Matter (YAML Metadata)
-
-Add metadata at the top of `.md` files:
-
+**Quick example:**
 ```markdown
+# posts/my-post.md
 ---
-title: My Blog Post
+title: My Post
 date: 2025-01-15
-description: A short summary for listings and RSS
-tags: [javascript, nue]
 ---
-
-# Post content starts here...
+Content here...
 ```
-
-**Required fields:** `title`, `date` (YYYY-MM-DD format)
-**Recommended:** `description` (for RSS and listings)
-**Posts auto-sort** by date descending (newest first)
-
-### Listing Posts
-
-**Option 1:** Built-in component (simple)
-```html
-<page-list/>
-```
-
-**Option 2:** Custom loop (more control)
-```html
-<div :for="post in posts">
-  <h3><a :href="post.url">{ post.title }</a></h3>
-  <time>{ post.date }</time>
-  <p>{ post.description }</p>
-</div>
-```
-
-**Available post properties:** `title`, `date`, `description`, `url`, `tags`, `author`
-
-### site.yaml Configuration
-
-Blogs need config in `site.yaml`:
 
 ```yaml
-meta:
-  title: My Blog
-  title_template: %s / My Blog
-  author: Your Name
-
-site:
-  origin: https://yourblog.com
-  view_transitions: true
-
-rss:
-  enabled: true
-  title: My Blog
-  description: Latest posts on web development
-  collection: posts
-
-design:
-  inline_css: true
-
+# site.yaml
 collections:
   posts:
     include: [ posts/ ]
-    require: [ title ]
     sort: date desc
+rss:
+  enabled: true
 ```
 
-**Key sections:**
-- `meta:` - SEO metadata (title templates, author)
-- `site:` - Site-wide settings (origin required for RSS)
-- `rss:` - Auto-generates `/feed.xml` when enabled
-- `collections:` - Define content collections with sorting
-- `design:` - Styling options (inline_css for performance)
+## Creating SPAs & APIs
 
-### RSS Feed Generation
+**See @spa-guide.md for client-side SPA patterns:**
+- Client-side routing (History API)
+- State management
+- Data fetching and loading states
+- Form handling
 
-With correct `site.yaml` (see above), Nue auto-generates RSS:
-
-1. Set `rss.enabled: true`
-2. Specify `rss.collection: posts` (matches your directory)
-3. Provide `site.origin` (full URL with https://)
-4. Ensure posts have `title`, `date`, `description`
-
-RSS available at `/feed.xml` automatically.
+**See @server-api-guide.md for backend APIs:**
+- REST endpoint patterns (`get()`, `post()`, `del()`)
+- Context object (`c.json()`, `c.req.param()`)
+- Middleware and authentication
+- **Note:** Server features are beta in 2.0.0-beta.2
 
 ## Common Commands
 
