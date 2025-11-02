@@ -1,6 +1,8 @@
-# Nue.js Reference Documentation
+# Nue.js 2.x Reference Documentation
 
 When you need detailed specs beyond workflow patterns, consult official Reference docs at https://nuejs.org/docs/.
+
+**⚠️ CRITICAL**: Only use Nue 2.x documentation (2024+). If unsure, verify examples use `<!doctype dhtml>` syntax.
 
 ## When to Consult Reference
 

@@ -2,6 +2,36 @@
 
 All notable changes to the working-with-nuejs skill.
 
+## [v6.2] - 2025-11-02
+
+**Status:** Current version
+**Word count:** 2,657 words
+
+### Added
+- `version-confusion.md` (390 words) - Critical v1.x vs v2.x differences
+  - Side-by-side syntax comparison
+  - Migration traps with examples
+  - Detection checklist for version identification
+  - Emergency error diagnosis guide
+
+### Changed
+- **SKILL.md**: Added prominent `<CRITICAL>` block warning about v2.x requirement
+  - Pre-flight checklist for external examples
+  - Version validation requirements
+  - Listed version-confusion.md as first guide to read
+- **adding-reactivity.md**: Fixed `:for` → `:each` in syntax table with warning
+- **reference-guide.md**: Added v2.x verification requirement for external docs
+
+### Fixed
+- Loop syntax in examples now uses `:each` (v2.x) not `:for` (v1.x)
+- Emphasized v2.x-only throughout skill
+- Added version checking guidance
+
+### Rationale
+Real-world testing (Hono → Nue migration) with browser-based validation revealed version confusion between Nue 1.x and 2.x patterns causing runtime errors. Beta software requires explicit version enforcement and validation requirements.
+
+---
+
 ## [v6.1] - 2025-11-02
 
 **Status:** Current version

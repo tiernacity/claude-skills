@@ -1,6 +1,8 @@
-# Adding Reactivity to Nue.js
+# Adding Reactivity to Nue.js 2.x
 
-Reactive components, state, events, and forms.
+Reactive components, state, events, and forms using `<!doctype dhtml>` syntax.
+
+**⚠️ Version Check**: These examples are Nue 2.x ONLY. See version-confusion.md if encountering errors.
 
 ## Basic Reactive Component
 
@@ -24,7 +26,7 @@ Reactive components, state, events, and forms.
 | Event | `@click="count++"` |
 | Binding | `{ count }` |
 | Conditional | `:if="count > 0"` |
-| Loop | `:for="item in items"` |
+| Loop | `:each="item in items"` ⚠️ **Not** `:for` (that's 1.x) |
 | Two-way | `value="{ name }" @input="name = $event.target.value"` |
 
 ## State Management
