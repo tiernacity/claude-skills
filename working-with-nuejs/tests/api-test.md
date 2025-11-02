@@ -23,7 +23,7 @@ Requirements:
 
 ## Success Criteria
 
-1. ✅ Agent references server-side.md
+1. ✅ Agent references creating-apis.md
 2. ✅ Creates server/index.js with route handlers
 3. ✅ Uses global functions (get, post, del) correctly
 4. ✅ Uses context object properly (c.json, c.req.param)
@@ -87,9 +87,9 @@ del('/api/users/:id', async (c) => {
 - No context object documentation
 - Unclear how to structure server code
 
-## GREEN Phase Result (v3.0 - With server-side.md)
+## GREEN Phase Result (v3.0 - With creating-apis.md)
 
-- Immediate reference to server-side.md
+- Immediate reference to creating-apis.md
 - Correct pattern usage (get, post, del, c.json, c.req.param)
 - Proper file structure (server/index.js)
 - **Agent provided beta warnings** (as documented)
@@ -107,14 +107,14 @@ del('/api/users/:id', async (c) => {
 ## Regression Testing
 
 Run this test when:
-- Updating server-side.md
+- Updating creating-apis.md
 - Nue.js releases new server features
 - Context object API changes
 - Beta status changes (when stable)
 
 ## Notes
 
-- Tests server-side.md coverage
+- Tests creating-apis.md coverage
 - **Success includes providing beta warnings** (not just working code)
 - Patterns are correct even if implementation is beta
 - Good test of "document what should work" vs "what does work"

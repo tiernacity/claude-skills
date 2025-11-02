@@ -1,257 +1,43 @@
 ---
 name: working-with-nuejs
-description: Use when working with Nue.js 2.x (HTML-first reactive framework) - covers getting started, building sites with file-based routing/layouts/collections, adding interactivity with reactive components, and server-side APIs. Feature-based modular guides: @building-sites.md, @adding-interactivity.md, @server-side.md
+description: Use when working with Nue.js 2.x (HTML-first reactive framework) - atomic workflow guides for getting started, project organization, reactivity, SPAs, APIs, and content collections. Load only what you need.
 ---
 
 # Working with Nue.js
 
-## Overview
+Nue.js is a minimalist, HTML-first reactive framework (1MB vs 500MB node_modules). Core principle: **Direct DOM manipulation**, not virtual DOM.
 
-Nue.js is a minimalist, HTML-first reactive framework (1MB vs typical 500MB node_modules). Core principle: **Direct DOM manipulation with HTML-centric components**, not JavaScript-centric virtual DOM.
+**Version:** 2.0.0-beta.2
+**Docs:** https://nuejs.org/docs/
+**Runtime:** Bun 1.2+
 
-**Current version:** 2.0.0-beta.2 (as of 2025-11-01)
-**Documentation:** https://nuejs.org/docs/
-**Runtime:** Bun 1.2+ (JavaScript runtime)
+## Atomic Workflow Guides
 
-## Installation & Quick Start
+Load ONLY what you need for current step:
 
-```bash
-# Install Bun (if needed)
-curl -fsSL https://bun.sh/install | bash
+**@getting-started.md** - Install, first app, commands
+**@organizing-projects.md** - File routing, layouts, `@shared/`
+**@adding-reactivity.md** - Components, state, events, forms
+**@building-spas.md** - Client routing, data fetching
+**@creating-apis.md** - REST endpoints (beta)
+**@content-collections.md** - Blogs, docs, portfolios
+**@common-mistakes.md** - Frequent errors that waste hours
+**@reference-guide.md** - When to use official Reference docs
 
-# Install Nue.js globally
-bun install --global nuekit
+## Quick Example
 
-# Create a project (optional templates: minimal, blog, spa, full)
-nue create my-app
-
-# Or start from scratch - just create index.html and run:
-nue serve
-```
-
-**Zero config required** - Nue follows UNIX philosophy: create HTML file, run `nue`.
-
-## Minimal Counter Example
-
-The simplest reactive component is a single HTML file:
-
-```html
-<!doctype dhtml>
-<html>
-<head>
-  <title>Counter</title>
-</head>
-<body>
-  <!-- Inline reactive component -->
-  <div>
-    <button @click="count--">-</button>
-    <b>{ count }</b>
-    <button @click="count++">+</button>
-
-    <script>
-      // Initialize state - that's it!
-      count = 0
-    </script>
-  </div>
-</body>
-</html>
-```
-
-**Key insights:**
-- `<!doctype dhtml>` enables reactive/interactive mode (client-side rendering)
-- `@click` for event handlers (not `:onclick` in v2.0)
-- `{ variable }` for data binding
-- `<script>` block defines state inline - no imports needed
-- State changes trigger automatic DOM updates
-
-## Component Syntax Quick Reference
-
-| Pattern | Syntax | Example |
-|---------|--------|---------|
-| Event handler | `@click="expression"` | `@click="count++"` |
-| Data binding | `{ variable }` | `<b>{ count }</b>` |
-| Initialize state | `<script>` block | `<script>count = 0</script>` |
-| Conditional | `:if="condition"` | `<p :if="count > 0">Positive</p>` |
-| Loop | `:for="item in items"` | `<li :for="todo in todos">{ todo }</li>` |
-
-## Doctype Confusion: dhtml vs html
-
-**Use `<!doctype dhtml>` when:**
-- Creating interactive/reactive components
-- Need client-side rendering
-- Building SPAs or dynamic UIs
-
-**Use regular `<!doctype html>` when:**
-- Static pages (server-side rendering)
-- Content-focused pages (blogs, docs)
-- No interactivity needed
-
-Most beginners need `dhtml` for their first experiments with reactivity.
-
-## For React Developers
-
-If you're coming from React, **unlearn these patterns:**
-
-| React Pattern | Nue.js Pattern | Why Different |
-|--------------|----------------|---------------|
-| `useState(0)` | `count = 0` in `<script>` | Direct variable, no hooks |
-| `onClick={() => ...}` | `@click="..."` | HTML attribute, not prop |
-| JSX `<MyComponent />` | Inline HTML | HTML-first, not JS-first |
-| Import/mount | Automatic | No manual mounting needed |
-| Separate files | Inline for simple cases | Start simple, extract later |
-| Virtual DOM | Direct DOM | Nue mutates DOM directly |
-
-**Don't overcomplicate** - Nue is intentionally simpler than React. A single HTML file is often enough.
-
-## Project Structure
-
-### Single-Page Apps (Simple)
-
-```
-my-app/
-└── index.html              # Just one file - that's it!
-```
-
-### Multi-Page Sites (Blog, Docs, Marketing)
-
-```
-my-app/
-├── index.html              # Homepage
-├── layout.html             # Shared header/footer (optional)
-├── site.yaml               # Site config (title, nav, etc.)
-├── @shared/                # System directory (auto-loaded)
-│   ├── design/            # CSS (auto-loaded client-side, no imports!)
-│   ├── ui/                # Shared components
-│   ├── data/              # YAML data (server-side)
-│   └── server/            # Backend routes
-├── blog/                   # Blog section → /blog/
-│   ├── index.md           # /blog/
-│   ├── layout.html        # Section-specific layout (optional)
-│   └── first-post.md      # /blog/first-post
-└── docs/                   # Docs section → /docs/
-    ├── index.html         # /docs/
-    └── guide.md           # /docs/guide
-```
-
-**File-based routing:** Directory structure = URL structure
-- `index.html` → `/`
-- `blog/index.md` → `/blog/`
-- `blog/first-post.md` → `/blog/first-post`
-- `docs/guide.md` → `/docs/guide`
-
-**`@shared/` directory (CRITICAL):**
-- Fixed name - must be exactly `@shared/` (not `@global/` or anything else)
-- CSS in `@shared/design/` auto-loads on ALL pages (no `<link>` needed!)
-- Components in `@shared/ui/` available everywhere
-- System-wide concerns, not app-specific
-
-**Layouts:**
-- `layout.html` in root = site-wide header/footer
-- `layout.html` in section (e.g., `blog/layout.html`) = section-specific
-- Wraps your content automatically
-
-**Supported files:** `.html`, `.md`, `.css`, `.js`, `.ts`, `.svg`, `.yaml`
-
-## Building Sites (Content & Pages)
-
-**See @building-sites.md for:**
-- File-based routing (directory structure = URLs)
-- Layouts (site-wide and section-specific)
-- Markdown content with front matter
-- Content collections (blogs, docs, portfolios)
-- site.yaml configuration
-- RSS feed generation
-- The `@shared/` directory
-
-**Quick example:**
-```markdown
-# blog/my-post.md
----
-title: My Post
-date: 2025-01-15
----
-Content here...
-```
-
-## Adding Interactivity
-
-**See @adding-interactivity.md for:**
-- Reactive components (@click, { } bindings)
-- State management
-- Client-side routing (SPAs)
-- Data fetching and loading states
-- Forms and validation
-- React-to-Nue transition
-
-**Quick example:**
 ```html
 <!doctype dhtml>
 <button @click="count++">{ count }</button>
 <script>count = 0</script>
 ```
 
-## Server-Side Features
+`<!doctype dhtml>` = reactive, `@click` = events, `{ }` = binding, `<script>` = state
 
-**See @server-side.md for:**
-- REST API endpoints (`get()`, `post()`, `del()`)
-- Context object (`c.json()`, `c.req.param()`)
-- Middleware and authentication
-- Nueserver patterns
-- **Note:** Server features are beta in 2.0.0-beta.2
+## Version Note
 
-## Common Commands
-
-```bash
-nue serve                    # Dev server with hot-reload (port 4000)
-nue serve --port 8080        # Custom port
-nue serve --production       # Preview without hot-reload
-nue build                    # Production build
-nue build --dry-run          # Preview what will build
-nue stats                    # Production statistics
-```
-
-**CLI documents itself:** Run `nue --help` for all options.
-
-## Common Mistakes
-
-| Mistake | Fix |
-|---------|-----|
-| Using regular `<!doctype html>` for interactive components | Use `<!doctype dhtml>` for reactivity |
-| Creating `.nue` component files (1.0 pattern) | Use HTML files with `<!doctype dhtml>` in 2.0 |
-| Naming system directory `@global/` or `@common/` | Must be exactly `@shared/` (fixed name) |
-| Manually linking CSS with `<link>` tags | CSS in `@shared/design/` auto-loads (no link needed!) |
-| Creating separate component files immediately | Start with inline components, extract when needed |
-| Looking for `import` statements | Nue auto-compiles/mounts - no manual imports |
-| Using React patterns (useState, JSX) | Use direct variables and HTML attributes |
-| Expecting virtual DOM | Nue mutates DOM directly - simpler model |
-| Adding build tools | Nue has zero-config dev server built-in |
-
-## When You Need More
-
-**Extracting components:** Use separate HTML files or template partials (see Nuedom docs)
-**Shared components:** Place in `@shared/ui/` for cross-app use
-**Styling:** CSS auto-loads from same directory or `@shared/design/`
-**Data:** Use `.yaml` files in `@shared/data/` for server-side data
-**Deep dive:** Full docs at https://nuejs.org/docs/
-
-**Note on `.nue` files:** These are from Nue 1.0. In 2.0, use HTML files with `<!doctype dhtml>` instead.
-
-## Version Notes
-
-Nue 2.0 is significantly different from 1.0:
-- New `<!doctype dhtml>` requirement for reactivity
-- Changed `:onclick` to `@click` for events
-- Automatic compilation/mounting (no manual setup)
-- Bun-first architecture
-
-If you see older docs/examples with different syntax, verify the version.
+Nue 2.0 differs from 1.0: New `<!doctype dhtml>` for reactivity (not `.nue` files), `@click` events (not `:onclick`), automatic compilation.
 
 ## Skill Maintenance
 
-**For skill maintainers:** This skill has regression tests in `tests/` directory. See `tests/README.md` for:
-- Test scenarios (Counter, Blog, SPA, Static Site, API)
-- RED-GREEN-REFACTOR methodology
-- How to run regression tests when updating the skill
-- Test coverage documentation
-
-Before committing changes to this skill, run all test scenarios to prevent regressions.
+Regression tests in `tests/` directory. See `tests/README.md` before updating.

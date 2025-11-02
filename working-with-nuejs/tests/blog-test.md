@@ -23,7 +23,7 @@ Requirements:
 
 ## Success Criteria
 
-1. ✅ Agent references building-sites.md (not just SKILL.md)
+1. ✅ Agent references content-collections.md and organizing-projects.md (not just SKILL.md)
 2. ✅ Creates correct directory structure (posts/, layout.html, site.yaml)
 3. ✅ Configures collection in site.yaml with proper sort
 4. ✅ Uses front matter correctly (title, date, description)
@@ -101,7 +101,7 @@ description: My first blog post
 
 ## GREEN Phase Result (v2.0 - Skill Updated, Retested)
 
-- Immediate reference to building-sites.md (new module)
+- Immediate reference to content-collections.md and organizing-projects.md (new module)
 - Correct structure on first try
 - All required config fields present
 - RSS working immediately
@@ -110,7 +110,7 @@ description: My first blog post
 
 ## REFACTOR Phase Result (v4.0 - Structure Changed, Functionality Unchanged)
 
-- Reorganized from use-case (blog-guide.md) to feature-based (building-sites.md)
+- Reorganized from use-case (blog-guide.md) to feature-based (content-collections.md and organizing-projects.md)
 - No functional changes to blog coverage
 - Retested: Still GREEN ✅ (zero regressions)
 - Improvement: Now also covers static sites explicitly
@@ -118,7 +118,7 @@ description: My first blog post
 ## Regression Testing
 
 Run this test when:
-- Updating building-sites.md
+- Updating content-collections.md and organizing-projects.md
 - Changing collections documentation
 - Modifying RSS guidance
 - Layout system changes
@@ -127,5 +127,5 @@ Run this test when:
 ## Notes
 
 - Tests most complex content site scenario
-- Validates entire building-sites.md module
+- Validates entire content-collections.md and organizing-projects.md module
 - RSS is a good integration test (requires origin, collection, front matter)

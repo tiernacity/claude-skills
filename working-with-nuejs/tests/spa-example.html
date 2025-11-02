@@ -1,0 +1,190 @@
+<!doctype dhtml>
+
+<script>
+  // ===== ROUTING STATE =====
+  currentView = 'home'
+  currentParams = {}
+
+  // ===== DATA STATE =====
+  users = []
+  currentUser = null
+  loading = false
+  error = null
+
+  // ===== ROUTING LOGIC =====
+  function pathToView(path) {
+    if (path === '/') return 'home'
+    if (path === '/users') return 'users'
+    if (path.startsWith('/users/')) {
+      currentParams.id = path.split('/')[2]
+      return 'user-detail'
+    }
+    return '404'
+  }
+
+  function navigate(path) {
+    currentView = pathToView(path)
+    window.history.pushState({}, '', path)
+
+    // Fetch data based on the new view
+    if (currentView === 'users') {
+      fetchUsers()
+    } else if (currentView === 'user-detail') {
+      fetchUser(currentParams.id)
+    }
+  }
+
+  // ===== DATA FETCHING =====
+  async function fetchUsers() {
+    loading = true
+    error = null
+    try {
+      const response = await fetch('/api/users')
+      if (!response.ok) throw new Error(`HTTP ${response.status}`)
+      users = await response.json()
+    } catch (e) {
+      error = e.message
+    } finally {
+      loading = false
+    }
+  }
+
+  async function fetchUser(id) {
+    loading = true
+    error = null
+    try {
+      const response = await fetch(`/api/users/${id}`)
+      if (!response.ok) throw new Error(`HTTP ${response.status}`)
+      currentUser = await response.json()
+    } catch (e) {
+      error = e.message
+    } finally {
+      loading = false
+    }
+  }
+
+  // ===== LIFECYCLE =====
+  mounted() {
+    currentView = pathToView(window.location.pathname)
+    if (currentView === 'users') {
+      fetchUsers()
+    } else if (currentView === 'user-detail') {
+      fetchUser(currentParams.id)
+    }
+  }
+
+  // ===== BACK/FORWARD SUPPORT =====
+  window.addEventListener('popstate', () => {
+    currentView = pathToView(window.location.pathname)
+    if (currentView === 'users') {
+      fetchUsers()
+    } else if (currentView === 'user-detail') {
+      fetchUser(currentParams.id)
+    }
+  })
+</script>
+
+<!-- NAVIGATION -->
+<nav>
+  <a href="/" @click.prevent="navigate('/')">Home</a>
+  <a href="/users" @click.prevent="navigate('/users')">Users</a>
+</nav>
+
+<main>
+  <!-- HOME VIEW -->
+  <div :if="currentView === 'home'">
+    <h1>Welcome to the SPA</h1>
+    <p>Navigate using the links above to see client-side routing in action.</p>
+  </div>
+
+  <!-- USERS LIST VIEW -->
+  <div :if="currentView === 'users'">
+    <h1>Users</h1>
+    <div :if="loading">
+      <p>Loading users...</p>
+    </div>
+    <div :if="error">
+      <p class="error">Error: { error }</p>
+      <button @click="fetchUsers()">Retry</button>
+    </div>
+    <div :if="!loading && !error && users.length > 0">
+      <ul>
+        <li :for="user in users">
+          <a href="/users/{ user.id }" @click.prevent="navigate('/users/' + user.id)">
+            { user.name }
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div :if="!loading && !error && users.length === 0">
+      <p>No users found.</p>
+    </div>
+  </div>
+
+  <!-- USER DETAIL VIEW -->
+  <div :if="currentView === 'user-detail'">
+    <h1>User Detail</h1>
+    <div :if="loading">
+      <p>Loading user...</p>
+    </div>
+    <div :if="error">
+      <p class="error">Error: { error }</p>
+      <button @click="fetchUser(currentParams.id)">Retry</button>
+    </div>
+    <div :if="!loading && !error && currentUser">
+      <h2>{ currentUser.name }</h2>
+      <p>Email: { currentUser.email }</p>
+      <p>ID: { currentUser.id }</p>
+      <a href="/users" @click.prevent="navigate('/users')">Back to Users</a>
+    </div>
+  </div>
+
+  <!-- 404 VIEW -->
+  <div :if="currentView === '404'">
+    <h1>Page Not Found</h1>
+    <a href="/" @click.prevent="navigate('/')">Go Home</a>
+  </div>
+</main>
+
+<style>
+  nav {
+    padding: 1rem;
+    border-bottom: 1px solid #ccc;
+  }
+
+  nav a {
+    margin-right: 1rem;
+    text-decoration: none;
+    color: #0066cc;
+  }
+
+  nav a:hover {
+    text-decoration: underline;
+  }
+
+  main {
+    padding: 2rem;
+  }
+
+  .error {
+    color: #cc0000;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  ul li {
+    padding: 0.5rem 0;
+  }
+
+  ul a {
+    color: #0066cc;
+    text-decoration: none;
+  }
+
+  ul a:hover {
+    text-decoration: underline;
+  }
+</style>

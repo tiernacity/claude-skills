@@ -22,7 +22,7 @@ Requirements:
 
 ## Success Criteria
 
-1. ✅ Agent references building-sites.md
+1. ✅ Agent references content-collections.md and organizing-projects.md
 2. ✅ Finds static site pattern (not defaulting to blog)
 3. ✅ Creates simple structure without unnecessary complexity
 4. ✅ Uses layout.html for shared header/footer
@@ -78,7 +78,7 @@ my-site/
 
 ## GREEN Phase Result (v4.0 - Feature-Based Organization)
 
-- Immediate reference to building-sites.md
+- Immediate reference to content-collections.md and organizing-projects.md
 - Found static marketing site pattern (lines 314-329)
 - Created simple structure without blog overhead
 - Clear statement: "No collections, no dynamic content - just pages"
@@ -87,7 +87,7 @@ my-site/
 ## Regression Testing
 
 Run this test when:
-- Updating building-sites.md
+- Updating content-collections.md and organizing-projects.md
 - Changing examples or patterns
 - Reorganizing skill structure
 - Layout documentation changes
@@ -96,5 +96,5 @@ Run this test when:
 
 - This test validates the v4.0 feature-based reorganization
 - Previously, "blog-guide.md" was too specific
-- Now building-sites.md covers static sites, blogs, AND docs
+- Now content-collections.md and organizing-projects.md covers static sites, blogs, AND docs
 - Tests that skill doesn't over-engineer simple use cases

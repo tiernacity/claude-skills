@@ -23,7 +23,7 @@ Requirements:
 
 ## Success Criteria
 
-1. ✅ Agent references adding-interactivity.md for routing
+1. ✅ Agent references adding-reactivity.md and building-spas.md for routing
 2. ✅ Implements History API pattern correctly
 3. ✅ Uses `window.history.pushState()` for navigation
 4. ✅ Listens to `popstate` for back/forward
@@ -107,7 +107,7 @@ Requirements:
 - Data fetching patterns unclear
 - Trial and error with lifecycle methods
 
-## GREEN Phase Result (v3.0 - With adding-interactivity.md)
+## GREEN Phase Result (v3.0 - With adding-reactivity.md and building-spas.md)
 
 - Immediate reference to client routing section
 - Correct History API usage on first try
@@ -118,7 +118,7 @@ Requirements:
 ## Regression Testing
 
 Run this test when:
-- Updating adding-interactivity.md
+- Updating adding-reactivity.md and building-spas.md
 - Changing routing examples
 - Modifying state management guidance
 - Data fetching patterns updated
@@ -127,6 +127,6 @@ Run this test when:
 ## Notes
 
 - Tests most complex interactive scenario
-- Validates entire adding-interactivity.md module
+- Validates entire adding-reactivity.md and building-spas.md module
 - Good test for state management patterns
 - History API integration is subtle - easy to get wrong

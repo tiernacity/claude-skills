@@ -30,9 +30,9 @@ This directory documents the test scenarios used to validate the skill. These se
 ### 2. Blog Site (Content Collections)
 
 **Scenario**: User wants to create a blog with multiple posts, RSS feed, and shared layout
-**Purpose**: Validates building-sites.md - file routing, layouts, collections, front matter, RSS
+**Purpose**: Validates project-structure.md - file routing, layouts, collections, front matter, RSS
 **Expected Behavior**:
-- Agent references building-sites.md for content patterns
+- Agent references project-structure.md for content patterns
 - Creates correct `site.yaml` with collections config
 - Uses proper front matter (title, date, description)
 - Implements site-wide layout correctly
@@ -48,9 +48,9 @@ This directory documents the test scenarios used to validate the skill. These se
 ### 3. SPA with Client Routing
 
 **Scenario**: User wants a single-page app with client-side routing and API data fetching
-**Purpose**: Validates adding-interactivity.md - client routing, state management, data fetching
+**Purpose**: Validates spa-development.md - client routing, state management, data fetching
 **Expected Behavior**:
-- Agent references adding-interactivity.md for SPA patterns
+- Agent references spa-development.md for SPA patterns
 - Implements History API-based routing correctly
 - Uses proper loading/error state patterns
 - Handles navigation and popstate events
@@ -65,7 +65,7 @@ This directory documents the test scenarios used to validate the skill. These se
 ### 4. Static Marketing Site
 
 **Scenario**: User wants simple marketing website (5 static pages, shared header/footer, no blog)
-**Purpose**: Validates building-sites.md covers non-blog static sites explicitly
+**Purpose**: Validates project-structure.md covers non-blog static sites explicitly
 **Expected Behavior**:
 - Agent finds guidance immediately (doesn't default to blog patterns)
 - Creates simple page structure with layout
@@ -81,9 +81,9 @@ This directory documents the test scenarios used to validate the skill. These se
 ### 5. REST API Endpoints (Beta)
 
 **Scenario**: User wants to create REST API with Nueserver
-**Purpose**: Validates server-side.md - API endpoints, context object, beta warnings
+**Purpose**: Validates server-apis.md - API endpoints, context object, beta warnings
 **Expected Behavior**:
-- Agent references server-side.md for patterns
+- Agent references server-apis.md for patterns
 - Uses global route functions (get, post, del) correctly
 - Understands context object (c.json, c.req.param)
 - Provides beta warnings and limitations
@@ -162,6 +162,7 @@ Consider automating with:
 - **v2.0**: Added blog test (collections, RSS, layouts)
 - **v3.0**: Added SPA + API tests, modular structure
 - **v4.0**: Added static site test, feature-based organization
+- **v5.0**: Workflow-based restructure aligned with official docs + reference signposting
 
 ## Adding New Tests
 
