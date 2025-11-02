@@ -245,3 +245,13 @@ Nue 2.0 is significantly different from 1.0:
 - Bun-first architecture
 
 If you see older docs/examples with different syntax, verify the version.
+
+## Skill Maintenance
+
+**For skill maintainers:** This skill has regression tests in `tests/` directory. See `tests/README.md` for:
+- Test scenarios (Counter, Blog, SPA, Static Site, API)
+- RED-GREEN-REFACTOR methodology
+- How to run regression tests when updating the skill
+- Test coverage documentation
+
+Before committing changes to this skill, run all test scenarios to prevent regressions.
